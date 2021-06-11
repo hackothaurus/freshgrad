@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Typography,
   Paper,
@@ -41,11 +41,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function PatientForm() {
+export default function PatientForm(props) {
   const [value, setValue] = React.useState('MD');
   const [name, setName] = React.useState('');
   const [date, setDate] = React.useState('');
   const [diagnosis, setDiagnosis] = React.useState('');
+
+  useEffect(()=>{
+    if(props.edit){
+      setOpen(true);
+    }
+  })
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -59,7 +65,8 @@ export default function PatientForm() {
   };
 
   const handleClose = () => {
-    setOpen(false);
+    document.location.reload(false);
+    // setOpen(false);
   };
 
   const submitForm = () => {
@@ -73,10 +80,13 @@ export default function PatientForm() {
             }
         })
           .then(res => {
-             console.log(res.data)
+             console.log(res.data);
+             window.location.reload(false);
           })
 
       handleClose();
+      
+
 
   }
 

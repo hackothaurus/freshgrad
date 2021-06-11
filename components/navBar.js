@@ -58,6 +58,10 @@ function HomeIcon(props) {
     );
   }
 
+function signOut(){
+  window.localStorage.setItem("token","expired")
+  document.location.href = "/login"
+}
 export default function ButtonAppBar() {
   const classes = useStyles();
   const router = useRouter();
@@ -80,7 +84,7 @@ export default function ButtonAppBar() {
             </Tooltip>
           </Box>
           <Box pr={1}>
-            <Button color='inherit'>Signout</Button>
+            <Button onClick={signOut} color='inherit'>Signout</Button>
           </Box>
         </Toolbar>
       </AppBar>

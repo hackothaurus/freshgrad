@@ -65,23 +65,17 @@ export default function Login() {
   const [token, setToken]=React.useState('');
 
   const submitForm = () => {
-    axios.post('http://127.0.0.1:8000/token/', {
-        "username":"kilo",
-        "password":"Thesmiths123"
+    axios.post('http://localhost:8000/token/', {
+        "username":name,
+        "password":password
     }
 )
           .then(res => {
-              tok = res.data.access;
-            if (tok){
-                console.log("correct")
+                window.localStorage.setItem("token",res.data.access)
                 document.location.href = "http://localhost:3000/patientList"
-            }
-            else{
-                console.log('incorrect')
-                alert("Unauthorized Access. Incorrect credentials.")
-            }
-            
 
+          }).catch(err=>{
+              alert("Login Failed. Incorrect Credentials.")
           })
 
   }
@@ -129,7 +123,6 @@ export default function Login() {
             label="Remember me"
           />
           <Button
-            type="submit"
             onClick={submitForm}
             fullWidth
             variant="contained"

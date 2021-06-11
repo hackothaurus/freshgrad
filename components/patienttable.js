@@ -12,6 +12,7 @@ import LastPage from '@material-ui/icons/LastPage';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import axios from 'axios';
+import PatientForm from './addPatient';
 
 const tableIcons = {
     Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
@@ -29,7 +30,9 @@ const tableIcons = {
 export default function Pattable(props) {
 
     const [sev, setSev] = useState(props.severity);
+    const [edit,setEdit] = useState(false)
     const [patient, setPatient] = useState([]);
+
 
     useEffect(() => {
         const s = props.severity
@@ -58,14 +61,16 @@ export default function Pattable(props) {
       }
 
       const handleEdit = (rowData) => {
+        let editButton=document.querySelector('.makeStyles-form-11 button');
+        
+        editButton.click();
         axios.delete(`http://127.0.0.1:8000/apis/users/patient/delete/`, {
             data: rowData
         })
           .then(res => {
             console.log(res.data)
-            window.location.reload(false);
           })
-          
+               
       }
 
     return (

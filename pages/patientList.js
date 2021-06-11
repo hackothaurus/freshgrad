@@ -16,7 +16,6 @@ import PatientForm from '../components/addPatient'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
     return (
       <div
         role="tabpanel"
@@ -62,7 +61,15 @@ function TabPanel(props) {
     }
   }));
   
-
+async function validate(){
+        if (window.localStorage.getItem("token")=="expired"){
+            document.querySelector("body").style.opacity=0;
+            alert("Token expired. Sign in to continue.")
+            document.location.href = "/login"
+            return true
+        }
+        return false
+}
 export default function PatientList(){
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
@@ -71,6 +78,7 @@ export default function PatientList(){
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+     validate();
     return(
         <> 
         <WAppbar/>
